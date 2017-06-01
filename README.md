@@ -1,5 +1,5 @@
 # microlog
-Simple logging utility for colourful logging in Go.
+Simple logging utility for colorful logging in Go.
 
 ## Installing
 In your terminal, run `go get github.com/Velocity-/microlog`
