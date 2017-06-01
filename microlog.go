@@ -2,7 +2,6 @@ package microlog
 
 import (
 	"fmt"
-	"strconv"
 
 	"time"
 
@@ -50,8 +49,12 @@ func Error(format string, params ...interface{}) {
 func print(format string, color func(a ...interface{}) string, tag string, params ...interface{}) {
 	caller := ""
 	if Config.IncludeCaller {
-		_, file, line, _ := runtime.Caller(2)
-		caller = path.Base(file) + ":" + strconv.Itoa(line) + " - "
+		_, file, line, ok := runtime.Caller(2)
+		if ok {
+			caller = fmt.Sprintf("%s:%d - ", path.Base(file), line)
+		} else {
+			caller = "unknown.go:1 - "
+		}
 	}
 
 	prefix := time.Now().Format("[2006-01-02T15:04:05.000 ") + color(tag) + "] " + caller
