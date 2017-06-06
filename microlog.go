@@ -9,6 +9,8 @@ import (
 
 	"path"
 
+	"os"
+
 	"github.com/fatih/color"
 )
 
@@ -44,6 +46,16 @@ func Warn(format string, params ...interface{}) {
 
 func Error(format string, params ...interface{}) {
 	print(format, fmtError, "ERROR", params...)
+}
+
+func Fatal(format string, params ...interface{}) {
+	Error(format, params...)
+	os.Exit(0)
+}
+
+func Panic(format string, params ...interface{}) {
+	Error(format, params...)
+	panic(fmt.Sprintf(format, params...))
 }
 
 func print(format string, color func(a ...interface{}) string, tag string, params ...interface{}) {
